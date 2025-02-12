@@ -1,0 +1,49 @@
+[project]
+name = "live-captions"
+version = "0.1.0"
+description = "A FastAPI-based live captioning application."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Your Name", email = "your.email@example.com" }]
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pytesseract",
+    "opencv-python-headless",
+    "numpy",
+    "pyautogui",
+    "googletrans==4.0.0-rc1",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# Settings for production or runtime parameters.
+[tool.uvicorn]
+host = "0.0.0.0"
+port = 8000
+log-level = "info"
+
+# Development-only dependencies (can be installed via a development extras group)
+[tool.uv]
+dev-dependencies = [
+    "ruff",           # linters & code formatters
+    "pytest",         # testing framework
+    "pytest-asyncio", # asynchronous test plugin for pytest
+]
+
+# Ruff is used for linting and autoformatting.
+[tool.ruff]
+line-length = 120
+lint.select = [
+    "E",
+    "F",
+    "W",
+    "C90",
+] # adjust based on your preferred coding style
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
