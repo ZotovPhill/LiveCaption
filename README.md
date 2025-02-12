@@ -154,7 +154,7 @@ This project is licensed under the terms specified in the LICENSE file.
 
 For any questions or support, please contact:
 
-Your Name <your.email@example.com>
+Pilip <phill.zotov@gmail.com>
 
 ## Additional Resources
 

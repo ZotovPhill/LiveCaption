@@ -28,7 +28,7 @@ WORKDIR /app
 
 COPY --from=builder /usr/local /usr/local
 
-COPY src/ .
+COPY src/server/ .
 
 RUN addgroup --system app && adduser --system --ingroup app app
 USER app
