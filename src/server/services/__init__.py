@@ -1,3 +1,3 @@
-from .caption_translator import CaptionTranslator
+from .mixins.executor import AsyncExecutorMixin
 
-__all__ = ["CaptionTranslator"]
+__all__ = ["AsyncExecutorMixin"]

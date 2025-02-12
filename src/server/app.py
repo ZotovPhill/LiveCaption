@@ -2,8 +2,10 @@ import uvicorn
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from googletrans import Translator
 
+from server.handlers.caption_translator import CaptionTranslatorHandler
 from server.models import LanguageEnum, Settings
-from server.services import CaptionTranslator
+from server.services.extractors import TesseractCaptionExtractor
+from server.services.translators import GoogleTranslateTextTranslator
 
 app: FastAPI = FastAPI()
 
@@ -17,8 +19,10 @@ translator: Translator = Translator()
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
     try:
-        translator_service = CaptionTranslator(translator, language=app.state.language)
-        async for translated_text in translator_service.capture_and_translate():
+        extractor = TesseractCaptionExtractor()
+        text_translator = GoogleTranslateTextTranslator(translator=translator)
+        translator_service = CaptionTranslatorHandler(extractor=extractor, translator=text_translator)
+        async for translated_text in translator_service.capture_and_translate(target_language=app.state.language):
             await websocket.send_text(translated_text)
     except WebSocketDisconnect:
         print("Client disconnected")
